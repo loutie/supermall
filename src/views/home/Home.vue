@@ -80,18 +80,25 @@ export default {
     }
   },
   created() {
-    getHomeMultidata().then(res => {
-      console.log(res);
-      this.banners = res.data.banner.list;
-      this.recommends = res.data.recommend.list;
-    })
-
-    getHomedate().then(res => {
-      console.log(res);
-    })
+    this.getHomeMultidata()
+    this.getHomedate('pop')
   },
   methods: {
-
+    getHomeMultidata () {
+        getHomeMultidata().then(res => {
+        // console.log(res);
+        this.banners = res.data.banner.list;
+        this.recommends = res.data.recommend.list;
+      })
+    },
+    getHomedate (type) {
+      var page = this.goods[type].page
+        getHomedate(type, page).then(res => {
+        console.log(res);
+        // this.goods[type].list.push(...res.data.list);
+        // this.goods[type].page += 1;
+      })
+    }
   }
 }
 </script>
